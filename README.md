@@ -3,6 +3,24 @@ under this mode , the application developer calls the Model Armor API before han
 
 Model Armor configuration is defined in a 'template ' , which is a GCP regional resources . It defines what AI security parameters you wish to be inspected and at what confidence level.
 
+In this repo , I have -
+(a) A application runnign on a Debian VM . Its a simple applciation with a input and output option .
+    User asks question in input text box -- it goes to LLM -- get reponse -- shows in output box 
+(b) The code of application is shared in this repo .
+(c) To include runtime AI security with Model Armor , flow of this application includes a call to Model Armor API (us-central in my case)
+
+# pre-requisites 
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install streamlit google-cloud-modelarmor huggingface_hub
+
+The compute runnign application must have correct IAM permissions
+
+$ gcloud projects add-iam-policy-binding <<project-id>> \
+    --member="serviceAccount:<<project-number>>-compute@developer.gserviceaccount.com" \
+    --role="roles/modelarmor.user"
+
+## Now lets look at the Application logic ##
 
 
 # model-armor-diy-api-call
