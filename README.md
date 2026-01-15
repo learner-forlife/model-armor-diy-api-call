@@ -1,3 +1,10 @@
+The purpose of this repo is to explain DIY mode of model armor
+under this mode , the application developer calls the Model Armor API before handing the call to LLM . Similarly , in reponse , the application will call the Model Armor API before the response is handed over to the end client
+
+Model Armor configuration is defined in a 'template ' , which is a GCP regional resources . It defines what AI security parameters you wish to be inspected and at what confidence level.
+
+
+
 # model-armor-diy-api-call
 This repo explains how a customer owned application enforces runtime security by integrating with model armor service 
 
