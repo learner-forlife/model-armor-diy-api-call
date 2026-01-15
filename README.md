@@ -9,7 +9,7 @@ In this repo , I have -
 (b) The code of application is shared in this repo .
 (c) To include runtime AI security with Model Armor , flow of this application includes a call to Model Armor API (us-central in my case)
 
-# pre-requisites 
+# Pre-requisites 
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install streamlit google-cloud-modelarmor huggingface_hub
@@ -20,23 +20,23 @@ $ gcloud projects add-iam-policy-binding <<project-id>> \
     --member="serviceAccount:<<project-number>>-compute@developer.gserviceaccount.com" \
     --role="roles/modelarmor.user"
 
-## Now lets look at the Application logic ##
+# Now lets look at the Application logic #
 
 
-# model-armor-diy-api-call
+## model-armor-diy-api-call
 This repo explains how a customer owned application enforces runtime security by integrating with model armor service 
 
-# the function named "call_model_armor"
+## the function named "call_model_armor"
 This function does not make decisions. It simply takes the text, runs to Google service , asks "Is this safe?", and brings back the report.
 
 Key Concept: APIs are picky. We had to set api_endpoint manually because Model Armor lives in specific regions (like us-central1), not a global address.
 Input: The raw text .
 Output: A complex object containing the "Sanitization Result" (Pass/Fail).
 
-# the function call_third_party_llm
+## the function call_third_party_llm
 
 
-# The scan phase 
+## The scan phase 
 
 armor_response = call_model_armor(user_input)
     sanitization_result = armor_response.sanitization_result
@@ -47,7 +47,7 @@ match_state: This is the most important variable in the whole code. It holds the
 MATCH_FOUND (Bad)
 NO_MATCH_FOUND (Good)
 
-# Sample Code #
+# Critical Sample Code section #
     if match_state == modelarmor_v1.FilterMatchState.MATCH_FOUND:
         st.error("🛑 BLOCKED...")
         # CODE STOPS HERE. The LLM is never called.
